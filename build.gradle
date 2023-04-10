@@ -23,3 +23,7 @@ dependencies {
 	exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
 }
 }
+
+jar {
+	enabled = false
+}
