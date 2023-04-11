@@ -4,14 +4,10 @@ plugins {
 	id 'io.spring.dependency-management' version '1.1.0'
 }
 
-//tasks.named("bootJar") {
-//	archiveClassifier = 'boot'
-//}
-
-tasks.named("jar") {
-	archiveClassifier = ''
-	enabled = false
+tasks.named("bootJar") {
+	archiveClassifier = 'boot'
 }
+
 
 group = 'hello'
 version = '0.0.1-SNAPSHOT'
