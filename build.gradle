@@ -8,10 +8,10 @@ plugins {
 //	archiveClassifier = 'boot'
 //}
 
-//tasks.named("jar") {
-////	archiveClassifier = ''
-//	enabled = false
-//}
+tasks.named("jar") {
+//	archiveClassifier = ''
+	enabled = false
+}
 
 group = 'hello'
 version = '0.0.1-SNAPSHOT'
