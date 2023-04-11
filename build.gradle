@@ -9,8 +9,8 @@ plugins {
 //}
 
 tasks.named("jar") {
-//	archiveClassifier = ''
-	enabled = false
+	archiveClassifier = ''
+	enabled = false가
 }
 
 group = 'hello'
