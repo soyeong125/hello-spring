@@ -2,9 +2,7 @@ language: java
 jdk:
   - openjdk17
 
-branches:
-  only:
-    - master
+g
 
 # Travis CI 서버의 Home
 cache:
@@ -15,7 +13,7 @@ cache:
 script: "./gradlew clean build"
 
 before_deploy:
-  - zip -r hello-spring
+  - zip -r hello-spring *
   - mkdir -p deploy
   - mv hello-spring.zip deploy/hello-spring.zip
 
