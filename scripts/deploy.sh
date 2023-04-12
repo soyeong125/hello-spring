@@ -1,6 +1,3 @@
-
-#!/bin/bash
-
 REPOSITORY=/home/ec2-user/app/step2
 PROJECT_NAME=hello-spring #해당 위치에 properties에 작성한 프로젝트명과 동일하게 작성합니다.
 
@@ -29,6 +26,6 @@ chmod +x $JAR_NAME
 
 echo "> $JAR_NAME 실행"
 nohup java -jar \
-  -Dspring.config.location=optional:/application.properties,/home/ec2-user/app/application-real-db.properties \
-  -Dspring.profile.active=real \
-  $JAR_NAME > $REPOSITORY/nohup.out 2>&1 &
+        -Dspring.config.location=optional:/application.properties,optional:/application-real.properties,/home/ec2-user/app/application-real-db.properties \
+        -Dspring.profiles.active=real \
+        $REPOSITORY/$JAR_NAME 2>&1 &
