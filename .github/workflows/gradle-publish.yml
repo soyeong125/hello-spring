@@ -4,8 +4,11 @@
 # documentation.
 # This workflow will build a package using Gradle and then publish it to GitHub packages when a release is created
 # For more information see: https://github.com/actions/setup-java/blob/main/docs/advanced-usage.md#Publishing-using-gradle
+env:
+  S3_BUCKET_NAME: hello-spring-build
+  PROJECT_NAME: hello-spring
 
-name: deploy # (0) GitHub Action에서 보여질 이름을 지정합니다. 
+name: deploy # (0) GitHub Action에서 보여질 이름을 지정합니다.
 
 on:
   release:
@@ -39,3 +42,33 @@ jobs:
     - name: Build with Gradle
       run: ./gradlew clean build -x test # (8)
       shell: bash
+
+    - name: Build with Gradle
+      run: ./gradlew clean -x test build # (8)
+      shell: bash
+
+    - name: Get current time
+      uses: 1466587594/get-current-time@v2
+      id: current-time
+      with:
+        format: YYYY-MM-DDTHH-mm-ss
+        utcOffset: "+09:00"     # utcOffset: "+09:00": 해당 action의 기준이 UTC이므로 한국시간인 KST로 진행 하기 위해 offset에 +09:00 를 해줌
+
+    - name: Show Current Time
+      run: echo "CurrentTime=${{steps.current-time.outputs.formattedTime}}" # 지정한 포맷대로 현재 시간을 보여줌
+      shell: bash
+
+
+    - name: Make zip file
+      run: zip -r ./$PROJECT_NAME.zip .         # 프로젝트 이름으로 폴더 압축
+      shell: bash
+
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v1      #aws에 키값으로 접 진행
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: ap-northeast-2
+
+    - name: Upload to S3
+      run: aws s3 cp --region ap-northeast-2 ./$PROJECT_NAME.zip s3://$S3_BUCKET_NAME/$PROJECT_NAME/$PROJECT_NAME.zip # 내가 지정한 s3 버킷 이름에 프로젝트 압축 폴더 저장
