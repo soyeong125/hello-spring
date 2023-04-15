@@ -28,5 +28,5 @@ echo "> $JAR_NAME 실행"
 nohup java -jar \
         -Dspring.config.location=optional:/application.properties,optional:/application-real.properties,/home/ec2-user/app/application-real-db.properties \
         -Dspring.profiles.active=real \
-        $REPOSITORY/$JAR_NAME 2>&1 &
+         $JAR_NAME 2>&1 &
 
