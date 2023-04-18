@@ -10,7 +10,7 @@ tasks.named("bootJar") {
 
 
 group = 'hello'
-version = '0.0.1-SNAPSHOT'
+version = '0.0.1-SNAPSHOT' + new Date().format("yyyyMMddHHmmss")
 sourceCompatibility = '17'
 
 repositories {
